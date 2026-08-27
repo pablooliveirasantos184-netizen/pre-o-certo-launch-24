@@ -10,33 +10,44 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CalculadoraDePrecificacaoRouteImport } from './routes/calculadora-de-precificacao'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CalculadoraDePrecificacaoRoute =
+  CalculadoraDePrecificacaoRouteImport.update({
+    id: '/calculadora-de-precificacao',
+    path: '/calculadora-de-precificacao',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/calculadora-de-precificacao': typeof CalculadoraDePrecificacaoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/calculadora-de-precificacao': typeof CalculadoraDePrecificacaoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/calculadora-de-precificacao': typeof CalculadoraDePrecificacaoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/calculadora-de-precificacao'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/calculadora-de-precificacao'
+  id: '__root__' | '/' | '/calculadora-de-precificacao'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CalculadoraDePrecificacaoRoute: typeof CalculadoraDePrecificacaoRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +59,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/calculadora-de-precificacao': {
+      id: '/calculadora-de-precificacao'
+      path: '/calculadora-de-precificacao'
+      fullPath: '/calculadora-de-precificacao'
+      preLoaderRoute: typeof CalculadoraDePrecificacaoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CalculadoraDePrecificacaoRoute: CalculadoraDePrecificacaoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
