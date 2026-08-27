@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { AdPlaceholder, SafeAdContainer } from "@/components/ad-placeholder";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -279,10 +280,28 @@ function HomePage() {
   return (
     <>
       <HeroSection />
+
+      {/* Espaço de anúncio — após hero, antes do problema */}
+      <SafeAdContainer>
+        <AdPlaceholder variant="responsive" className="max-w-4xl mx-auto" />
+      </SafeAdContainer>
+
       <ProblemSection />
+
+      {/* Espaço de anúncio — entre seção de problema e como funciona */}
+      <SafeAdContainer>
+        <AdPlaceholder variant="horizontal" className="max-w-4xl mx-auto" />
+      </SafeAdContainer>
+
       <HowItWorksSection />
       <CalculatorCTA />
+
       <BenefitsSection />
+
+      {/* Espaço de anúncio — antes do footer */}
+      <SafeAdContainer>
+        <AdPlaceholder variant="in-content" className="max-w-4xl mx-auto" />
+      </SafeAdContainer>
     </>
   );
 }
