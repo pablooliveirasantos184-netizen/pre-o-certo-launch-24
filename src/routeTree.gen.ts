@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as CalculadoraDePrecificacaoRouteImport } from './routes/calculadora-de-precificacao'
 import { Route as ContatoRouteImport } from './routes/contato'
+import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as TermosRouteImport } from './routes/termos'
@@ -38,6 +39,11 @@ const ContatoRoute = ContatoRouteImport.update({
   path: '/contato',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CookiesRoute = CookiesRouteImport.update({
+  id: '/cookies',
+  path: '/cookies',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacidadeRoute = PrivacidadeRouteImport.update({
   id: '/privacidade',
   path: '/privacidade',
@@ -59,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/blog': typeof BlogRoute
   '/calculadora-de-precificacao': typeof CalculadoraDePrecificacaoRoute
   '/contato': typeof ContatoRoute
+  '/cookies': typeof CookiesRoute
   '/privacidade': typeof PrivacidadeRoute
   '/sobre': typeof SobreRoute
   '/termos': typeof TermosRoute
@@ -68,6 +75,7 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogRoute
   '/calculadora-de-precificacao': typeof CalculadoraDePrecificacaoRoute
   '/contato': typeof ContatoRoute
+  '/cookies': typeof CookiesRoute
   '/privacidade': typeof PrivacidadeRoute
   '/sobre': typeof SobreRoute
   '/termos': typeof TermosRoute
@@ -78,6 +86,7 @@ export interface FileRoutesById {
   '/blog': typeof BlogRoute
   '/calculadora-de-precificacao': typeof CalculadoraDePrecificacaoRoute
   '/contato': typeof ContatoRoute
+  '/cookies': typeof CookiesRoute
   '/privacidade': typeof PrivacidadeRoute
   '/sobre': typeof SobreRoute
   '/termos': typeof TermosRoute
@@ -89,6 +98,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/calculadora-de-precificacao'
     | '/contato'
+    | '/cookies'
     | '/privacidade'
     | '/sobre'
     | '/termos'
@@ -98,6 +108,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/calculadora-de-precificacao'
     | '/contato'
+    | '/cookies'
     | '/privacidade'
     | '/sobre'
     | '/termos'
@@ -107,6 +118,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/calculadora-de-precificacao'
     | '/contato'
+    | '/cookies'
     | '/privacidade'
     | '/sobre'
     | '/termos'
@@ -117,6 +129,7 @@ export interface RootRouteChildren {
   BlogRoute: typeof BlogRoute
   CalculadoraDePrecificacaoRoute: typeof CalculadoraDePrecificacaoRoute
   ContatoRoute: typeof ContatoRoute
+  CookiesRoute: typeof CookiesRoute
   PrivacidadeRoute: typeof PrivacidadeRoute
   SobreRoute: typeof SobreRoute
   TermosRoute: typeof TermosRoute
@@ -152,6 +165,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContatoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cookies': {
+      id: '/cookies'
+      path: '/cookies'
+      fullPath: '/cookies'
+      preLoaderRoute: typeof CookiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacidade': {
       id: '/privacidade'
       path: '/privacidade'
@@ -181,6 +201,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogRoute: BlogRoute,
   CalculadoraDePrecificacaoRoute: CalculadoraDePrecificacaoRoute,
   ContatoRoute: ContatoRoute,
+  CookiesRoute: CookiesRoute,
   PrivacidadeRoute: PrivacidadeRoute,
   SobreRoute: SobreRoute,
   TermosRoute: TermosRoute,
