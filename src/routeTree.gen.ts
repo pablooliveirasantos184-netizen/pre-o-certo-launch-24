@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as CalculadoraDePrecificacaoRouteImport } from './routes/calculadora-de-precificacao'
 import { Route as ContatoRouteImport } from './routes/contato'
+import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as SobreRouteImport } from './routes/sobre'
 
 const IndexRoute = IndexRouteImport.update({
@@ -36,6 +37,11 @@ const ContatoRoute = ContatoRouteImport.update({
   path: '/contato',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacidadeRoute = PrivacidadeRouteImport.update({
+  id: '/privacidade',
+  path: '/privacidade',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SobreRoute = SobreRouteImport.update({
   id: '/sobre',
   path: '/sobre',
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/blog': typeof BlogRoute
   '/calculadora-de-precificacao': typeof CalculadoraDePrecificacaoRoute
   '/contato': typeof ContatoRoute
+  '/privacidade': typeof PrivacidadeRoute
   '/sobre': typeof SobreRoute
 }
 export interface FileRoutesByTo {
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogRoute
   '/calculadora-de-precificacao': typeof CalculadoraDePrecificacaoRoute
   '/contato': typeof ContatoRoute
+  '/privacidade': typeof PrivacidadeRoute
   '/sobre': typeof SobreRoute
 }
 export interface FileRoutesById {
@@ -62,20 +70,33 @@ export interface FileRoutesById {
   '/blog': typeof BlogRoute
   '/calculadora-de-precificacao': typeof CalculadoraDePrecificacaoRoute
   '/contato': typeof ContatoRoute
+  '/privacidade': typeof PrivacidadeRoute
   '/sobre': typeof SobreRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/blog' | '/calculadora-de-precificacao' | '/contato' | '/sobre'
+    | '/'
+    | '/blog'
+    | '/calculadora-de-precificacao'
+    | '/contato'
+    | '/privacidade'
+    | '/sobre'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/blog' | '/calculadora-de-precificacao' | '/contato' | '/sobre'
+  to:
+    | '/'
+    | '/blog'
+    | '/calculadora-de-precificacao'
+    | '/contato'
+    | '/privacidade'
+    | '/sobre'
   id:
     | '__root__'
     | '/'
     | '/blog'
     | '/calculadora-de-precificacao'
     | '/contato'
+    | '/privacidade'
     | '/sobre'
   fileRoutesById: FileRoutesById
 }
@@ -84,6 +105,7 @@ export interface RootRouteChildren {
   BlogRoute: typeof BlogRoute
   CalculadoraDePrecificacaoRoute: typeof CalculadoraDePrecificacaoRoute
   ContatoRoute: typeof ContatoRoute
+  PrivacidadeRoute: typeof PrivacidadeRoute
   SobreRoute: typeof SobreRoute
 }
 
@@ -117,6 +139,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContatoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacidade': {
+      id: '/privacidade'
+      path: '/privacidade'
+      fullPath: '/privacidade'
+      preLoaderRoute: typeof PrivacidadeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sobre': {
       id: '/sobre'
       path: '/sobre'
@@ -132,6 +161,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogRoute: BlogRoute,
   CalculadoraDePrecificacaoRoute: CalculadoraDePrecificacaoRoute,
   ContatoRoute: ContatoRoute,
+  PrivacidadeRoute: PrivacidadeRoute,
   SobreRoute: SobreRoute,
 }
 export const routeTree = rootRouteImport
