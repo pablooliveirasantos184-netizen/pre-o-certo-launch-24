@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CalculadoraDePrecificacaoRouteImport } from './routes/calculadora-de-precificacao'
+import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as SobreRouteImport } from './routes/sobre'
 
 const IndexRoute = IndexRouteImport.update({
@@ -24,6 +25,11 @@ const CalculadoraDePrecificacaoRoute =
     path: '/calculadora-de-precificacao',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ContatoRoute = ContatoRouteImport.update({
+  id: '/contato',
+  path: '/contato',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SobreRoute = SobreRouteImport.update({
   id: '/sobre',
   path: '/sobre',
@@ -33,30 +39,34 @@ const SobreRoute = SobreRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/calculadora-de-precificacao': typeof CalculadoraDePrecificacaoRoute
+  '/contato': typeof ContatoRoute
   '/sobre': typeof SobreRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/calculadora-de-precificacao': typeof CalculadoraDePrecificacaoRoute
+  '/contato': typeof ContatoRoute
   '/sobre': typeof SobreRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/calculadora-de-precificacao': typeof CalculadoraDePrecificacaoRoute
+  '/contato': typeof ContatoRoute
   '/sobre': typeof SobreRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/calculadora-de-precificacao' | '/sobre'
+  fullPaths: '/' | '/calculadora-de-precificacao' | '/contato' | '/sobre'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/calculadora-de-precificacao' | '/sobre'
-  id: '__root__' | '/' | '/calculadora-de-precificacao' | '/sobre'
+  to: '/' | '/calculadora-de-precificacao' | '/contato' | '/sobre'
+  id: '__root__' | '/' | '/calculadora-de-precificacao' | '/contato' | '/sobre'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CalculadoraDePrecificacaoRoute: typeof CalculadoraDePrecificacaoRoute
+  ContatoRoute: typeof ContatoRoute
   SobreRoute: typeof SobreRoute
 }
 
@@ -76,6 +86,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CalculadoraDePrecificacaoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contato': {
+      id: '/contato'
+      path: '/contato'
+      fullPath: '/contato'
+      preLoaderRoute: typeof ContatoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sobre': {
       id: '/sobre'
       path: '/sobre'
@@ -89,6 +106,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CalculadoraDePrecificacaoRoute: CalculadoraDePrecificacaoRoute,
+  ContatoRoute: ContatoRoute,
   SobreRoute: SobreRoute,
 }
 export const routeTree = rootRouteImport
