@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BlogRouteImport } from './routes/blog'
 import { Route as CalculadoraDePrecificacaoRouteImport } from './routes/calculadora-de-precificacao'
 import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as SobreRouteImport } from './routes/sobre'
@@ -17,6 +18,11 @@ import { Route as SobreRouteImport } from './routes/sobre'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CalculadoraDePrecificacaoRoute =
@@ -38,12 +44,14 @@ const SobreRoute = SobreRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/blog': typeof BlogRoute
   '/calculadora-de-precificacao': typeof CalculadoraDePrecificacaoRoute
   '/contato': typeof ContatoRoute
   '/sobre': typeof SobreRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/blog': typeof BlogRoute
   '/calculadora-de-precificacao': typeof CalculadoraDePrecificacaoRoute
   '/contato': typeof ContatoRoute
   '/sobre': typeof SobreRoute
@@ -51,20 +59,29 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/blog': typeof BlogRoute
   '/calculadora-de-precificacao': typeof CalculadoraDePrecificacaoRoute
   '/contato': typeof ContatoRoute
   '/sobre': typeof SobreRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/calculadora-de-precificacao' | '/contato' | '/sobre'
+  fullPaths:
+    '/' | '/blog' | '/calculadora-de-precificacao' | '/contato' | '/sobre'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/calculadora-de-precificacao' | '/contato' | '/sobre'
-  id: '__root__' | '/' | '/calculadora-de-precificacao' | '/contato' | '/sobre'
+  to: '/' | '/blog' | '/calculadora-de-precificacao' | '/contato' | '/sobre'
+  id:
+    | '__root__'
+    | '/'
+    | '/blog'
+    | '/calculadora-de-precificacao'
+    | '/contato'
+    | '/sobre'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BlogRoute: typeof BlogRoute
   CalculadoraDePrecificacaoRoute: typeof CalculadoraDePrecificacaoRoute
   ContatoRoute: typeof ContatoRoute
   SobreRoute: typeof SobreRoute
@@ -77,6 +94,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/calculadora-de-precificacao': {
@@ -105,6 +129,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BlogRoute: BlogRoute,
   CalculadoraDePrecificacaoRoute: CalculadoraDePrecificacaoRoute,
   ContatoRoute: ContatoRoute,
   SobreRoute: SobreRoute,
