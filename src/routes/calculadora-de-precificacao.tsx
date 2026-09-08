@@ -47,7 +47,10 @@ const marginFields: Field[] = [
   { id: "precoAtual", label: "Preço atual (opcional)", help: "Se você já vende, informe o preço praticado hoje para comparar.", suffix: "R$" },
 ];
 
+type TipoPrecificacao = "produto" | "servico";
+
 function CalculadoraPage() {
+  const [tipo, setTipo] = useState<TipoPrecificacao | null>(null);
   const [values, setValues] = useState<Record<string, string>>({});
   const [showResult, setShowResult] = useState(false);
 
