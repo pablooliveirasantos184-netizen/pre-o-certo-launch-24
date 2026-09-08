@@ -255,6 +255,7 @@ function CalculadoraPage() {
           </section>
         )}
       </div>
+      )}
     </div>
   );
 }
