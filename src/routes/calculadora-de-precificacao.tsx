@@ -47,7 +47,10 @@ const marginFields: Field[] = [
   { id: "precoAtual", label: "Preço atual (opcional)", help: "Se você já vende, informe o preço praticado hoje para comparar.", suffix: "R$" },
 ];
 
+type TipoPrecificacao = "produto" | "servico";
+
 function CalculadoraPage() {
+  const [tipo, setTipo] = useState<TipoPrecificacao | null>(null);
   const [values, setValues] = useState<Record<string, string>>({});
   const [showResult, setShowResult] = useState(false);
 
@@ -109,7 +112,62 @@ function CalculadoraPage() {
         Informe seus custos, taxas e a margem desejada para descobrir o preço certo.
       </p>
 
+      {tipo === null ? (
+        <section className="mt-8 rounded-2xl border border-border bg-card p-5 sm:p-6">
+          <h2 className="text-lg font-semibold text-foreground">
+            O que você quer precificar?
+          </h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Escolha uma opção para começar.
+          </p>
+          <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {(
+              [
+                {
+                  value: "produto",
+                  title: "Produto",
+                  description: "Algo físico ou digital que você vende, como roupas, artesanato ou ebooks.",
+                },
+                {
+                  value: "servico",
+                  title: "Serviço",
+                  description: "Um trabalho que você realiza, como consultoria, design ou manutenção.",
+                },
+              ] as { value: TipoPrecificacao; title: string; description: string }[]
+            ).map((option) => (
+              <button
+                key={option.value}
+                type="button"
+                onClick={() => setTipo(option.value)}
+                className="rounded-xl border border-border bg-background p-5 text-left transition-colors hover:border-primary hover:bg-primary/5 focus:outline-none focus:ring-2 focus:ring-primary"
+              >
+                <span className="block text-base font-semibold text-foreground">
+                  {option.title}
+                </span>
+                <span className="mt-1 block text-sm text-muted-foreground">
+                  {option.description}
+                </span>
+              </button>
+            ))}
+          </div>
+        </section>
+      ) : (
       <div className="mt-8 space-y-8">
+        <div className="flex items-center justify-between rounded-xl border border-border bg-card px-4 py-3">
+          <p className="text-sm text-foreground">
+            Precificando: <strong>{tipo === "produto" ? "Produto" : "Serviço"}</strong>
+          </p>
+          <button
+            type="button"
+            onClick={() => {
+              setTipo(null);
+              setShowResult(false);
+            }}
+            className="text-sm font-medium text-primary hover:underline"
+          >
+            Trocar
+          </button>
+        </div>
         <section className="rounded-2xl border border-border bg-card p-5 sm:p-6">
           <h2 className="text-lg font-semibold text-foreground">1. Seus custos</h2>
           <div className="mt-4">{renderFields(costFields)}</div>
@@ -197,6 +255,7 @@ function CalculadoraPage() {
           </section>
         )}
       </div>
+      )}
     </div>
   );
 }
